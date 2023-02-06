@@ -530,7 +530,7 @@ b2.addActionListener(this);
 
 							String pid=x6.getText();
 
-							String q2="delete * from stocks where PID=pid";
+							String q2="delete * from stocks where PID="+pid;
 
 							//stmt.executeUpdate(q2);
 
@@ -622,7 +622,7 @@ b2.addActionListener(this);
 
 							String qua=x8.getText();
 
-							String q3="update stocks set QTY=qua where PID=pid";
+							String q3="update stocks set QTY=qua where PID="+pid;
 
 							//stmt.executeUpdate(q3);
 
