@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 
 import java.sql.*;
@@ -83,7 +84,7 @@ import java.sql.*;
 			
 		if(e1.getSource()==login)
 		{
-		if(s1.trim().equals("Admin") && s2.trim().equals("password")) 
+		if(s1.trim().equals("Admin") && s2.trim().equals("pass")) 
 		{
 		f2=new JFrame();
 		//l3=new JLabel();
@@ -140,7 +141,7 @@ import java.sql.*;
 				
 				
 				enter=new JButton("Enter");
-				enter.setBounds(100,250,50,50);
+				enter.setBounds(100,250,150,50);
 				
 				
 				
@@ -187,13 +188,21 @@ import java.sql.*;
 							 st.close();
 							 con.close();
 							 
+							 
+							 
+							 
 						}
 						
 						catch(Exception e)
 						{
 							System.out.println(e);
 						}
+					
+					
 					}
+					JOptionPane.showMessageDialog(f4,"Record Inserted");
+					
+					f4.dispose();
 				}
 					
 				});
@@ -263,6 +272,8 @@ import java.sql.*;
 									System.out.println(e);
 								}
 							}
+						JOptionPane.showMessageDialog(f5, "Record Deleted");
+						f5.dispose();
 						}
 					});
 					
@@ -279,15 +290,50 @@ import java.sql.*;
 		{
 			if(e14.getSource()==b6)
 			{
-			JFrame f7=new JFrame();
-			JTextField t7=new JTextField();
+
+			try
+			{
+				 String url = "jdbc:mysql://localhost:3306/jeff";
+				 String uname = "root";
+				 String pass = "jeff@123";
+				 String query="select * from admin";
+				
+				    
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection con=DriverManager.getConnection(url,uname,pass);
+				Statement st=con.createStatement();
+				ResultSet rs=st.executeQuery(query);
+				
+				String userdata="";
+				String data="ShopID \t| \tShop Name \t|\t Shop Owner name";
+				
+				while(rs.next())
+				{
+					userdata=rs.getInt(1) + "\t|\t " + rs.getString(2) + " \t|\t " +rs.getString(3);
+					//System.out.println(userdata);
+					data=data+ "\n" + userdata;
+					
+				}
+				
+				System.out.print(data);
+				
+				
+				
+				JOptionPane.showMessageDialog(f2,data);
+				 
+				 st.close();
+				 con.close();
+				 
+			}
 			
-			t7.setBounds(50,50,500,500);
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
 			
-			f7.setVisible(true);
-			f7.setSize(700,700);
-			f7.setLayout(null);
-			f7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			
+	
 				
 			}
 			
@@ -316,4 +362,3 @@ import java.sql.*;
 		}
 		
  }
-
